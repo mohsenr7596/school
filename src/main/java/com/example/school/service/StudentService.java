@@ -1,15 +1,15 @@
 package com.example.school.service;
 
-import com.example.school.domain.Student;
+import com.example.school.dto.StudentDTO;
 
 import java.util.List;
 
 public interface StudentService {
-    Student saveStudent(Student student);
+    StudentDTO saveStudent(StudentDTO studentDTO);
 
-    List<Student> getAllStudents();
+    List<StudentDTO> getAllStudents();
 
-    Student getStudentById(Long id);
+    StudentDTO getStudentById(Long id);
 
     void deleteStudent(Long id);
 

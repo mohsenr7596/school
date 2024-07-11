@@ -59,11 +59,10 @@ public class StudentController {
     @GetMapping("/search")
     @Operation(summary = "Search students by name and email with pagination")
     public ResponseEntity<Page<StudentDTO>> searchStudents(
-            @RequestParam String name,
-            @RequestParam String email,
+            @RequestParam String keyword,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        final var students = studentService.searchStudents(name, email, page, size);
+        final var students = studentService.searchStudents(keyword, page, size);
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 }

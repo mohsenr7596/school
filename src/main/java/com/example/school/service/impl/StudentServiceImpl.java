@@ -55,9 +55,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Page<StudentDTO> searchStudents(String name, String email, int page, int size) {
+    public Page<StudentDTO> searchStudents(String keyword, int page, int size) {
         final var pageable = PageRequest.of(page, size);
-        return studentRepository.findByNameContainingAndEmailContaining(name, email, pageable)
+        return studentRepository.searchByKeyword(keyword, pageable)
                 .map(studentMapper::toDto);
     }
 }

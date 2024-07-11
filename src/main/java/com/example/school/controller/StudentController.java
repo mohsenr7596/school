@@ -4,13 +4,16 @@ import com.example.school.dto.StudentDTO;
 import com.example.school.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+@Validated
 @RestController
 @RequestMapping("/students")
 @RequiredArgsConstructor
@@ -21,7 +24,7 @@ public class StudentController {
 
     @PostMapping
     @Operation(summary = "Create a new student")
-    public ResponseEntity<StudentDTO> createStudent(@RequestBody StudentDTO studentDTO) {
+    public ResponseEntity<StudentDTO> createStudent(@Valid @RequestBody StudentDTO studentDTO) {
         final var savedStudentDTO = studentService.saveStudent(studentDTO);
         return new ResponseEntity<>(savedStudentDTO, HttpStatus.CREATED);
     }
@@ -64,5 +67,12 @@ public class StudentController {
             @RequestParam(defaultValue = "10") int size) {
         final var students = studentService.searchStudents(keyword, page, size);
         return new ResponseEntity<>(students, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update a student by ID")
+    public ResponseEntity<StudentDTO> updateStudent(@PathVariable Long id, @Valid @RequestBody StudentDTO studentDTO) {
+        final var updatedStudentDTO = studentService.updateStudent(id, studentDTO);
+        return new ResponseEntity<>(updatedStudentDTO, HttpStatus.OK);
     }
 }

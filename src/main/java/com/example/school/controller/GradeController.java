@@ -4,13 +4,16 @@ import com.example.school.dto.GradeDTO;
 import com.example.school.service.GradeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+@Validated
 @RestController
 @RequestMapping("/grades")
 @RequiredArgsConstructor
@@ -20,7 +23,7 @@ public class GradeController {
 
     @PostMapping
     @Operation(summary = "Create a new grade")
-    public ResponseEntity<GradeDTO> createGrade(@RequestBody GradeDTO gradeDTO) {
+    public ResponseEntity<GradeDTO> createGrade(@Valid @RequestBody GradeDTO gradeDTO) {
         final var savedGradeDTO = gradeService.saveGrade(gradeDTO);
         return new ResponseEntity<>(savedGradeDTO, HttpStatus.CREATED);
     }
@@ -41,7 +44,7 @@ public class GradeController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a grade by ID")
-    public ResponseEntity<GradeDTO> updateGrade(@PathVariable Long id, @RequestBody GradeDTO gradeDTO) {
+    public ResponseEntity<GradeDTO> updateGrade(@PathVariable Long id, @Valid @RequestBody GradeDTO gradeDTO) {
         final var updatedGradeDTO = gradeService.updateGrade(id, gradeDTO);
         return new ResponseEntity<>(updatedGradeDTO, HttpStatus.OK);
     }

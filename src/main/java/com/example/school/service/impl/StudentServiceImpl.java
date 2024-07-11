@@ -60,4 +60,16 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.searchByKeyword(keyword, pageable)
                 .map(studentMapper::toDto);
     }
+
+    @Override
+    public StudentDTO updateStudent(long id, StudentDTO studentDTO) {
+        final var student = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        student.setName(studentDTO.getName());
+        student.setEmail(studentDTO.getEmail());
+
+        final var updatedStudent = studentRepository.save(student);
+        return studentMapper.toDto(updatedStudent);
+    }
 }

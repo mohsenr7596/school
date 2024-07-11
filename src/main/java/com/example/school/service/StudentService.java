@@ -15,4 +15,6 @@ public interface StudentService {
     double calculateGPA(long studentId);
 
     Page<StudentDTO> searchStudents(String keyword, int page, int size);
+
+    StudentDTO updateStudent(long id, StudentDTO studentDTO);
 }

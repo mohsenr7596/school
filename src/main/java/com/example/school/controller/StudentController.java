@@ -5,6 +5,7 @@ import com.example.school.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -40,21 +41,27 @@ public class StudentController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get a student by ID")
-    public ResponseEntity<StudentDTO> getStudentById(@PathVariable Long id) {
+    public ResponseEntity<StudentDTO> getStudentById(
+            @Positive(message = "ID must be positive") @PathVariable Long id
+    ) {
         final var student = studentService.getStudentById(id);
         return new ResponseEntity<>(student, student != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a student by ID")
-    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteStudent(
+            @Positive(message = "ID must be positive") @PathVariable Long id
+    ) {
         studentService.deleteStudent(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}/gpa")
     @Operation(summary = "Calculate GPA of a student by ID")
-    public ResponseEntity<Double> calculateGPA(@PathVariable Long id) {
+    public ResponseEntity<Double> calculateGPA(
+            @Positive(message = "ID must be positive") @PathVariable Long id
+    ) {
         final var gpa = studentService.calculateGPA(id);
         return new ResponseEntity<>(gpa, HttpStatus.OK);
     }
@@ -71,7 +78,9 @@ public class StudentController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a student by ID")
-    public ResponseEntity<StudentDTO> updateStudent(@PathVariable Long id, @Valid @RequestBody StudentDTO studentDTO) {
+    public ResponseEntity<StudentDTO> updateStudent(
+            @Positive(message = "ID must be positive") @PathVariable Long id,
+            @Valid @RequestBody StudentDTO studentDTO) {
         final var updatedStudentDTO = studentService.updateStudent(id, studentDTO);
         return new ResponseEntity<>(updatedStudentDTO, HttpStatus.OK);
     }

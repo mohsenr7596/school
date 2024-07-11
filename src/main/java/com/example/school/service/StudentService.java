@@ -1,17 +1,18 @@
 package com.example.school.service;
 
 import com.example.school.dto.StudentDTO;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface StudentService {
     StudentDTO saveStudent(StudentDTO studentDTO);
 
-    List<StudentDTO> getAllStudents();
+    Page<StudentDTO> getAllStudents(int page, int size);
 
-    StudentDTO getStudentById(Long id);
+    StudentDTO getStudentById(long id);
 
-    void deleteStudent(Long id);
+    void deleteStudent(long id);
 
-    double calculateGPA(Long studentId);
+    double calculateGPA(long studentId);
+
+    Page<StudentDTO> searchStudents(String name, String email, int page, int size);
 }

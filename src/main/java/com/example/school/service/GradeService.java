@@ -1,19 +1,17 @@
 package com.example.school.service;
 
-import com.example.school.domain.Grade;
 import com.example.school.dto.GradeDTO;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface GradeService {
 
     GradeDTO saveGrade(GradeDTO gradeDTO);
 
-    List<GradeDTO> getAllGrades();
+    Page<GradeDTO> getAllGrades(int page, int size);
 
-    GradeDTO getGradeById(Long id);
+    GradeDTO getGradeById(long id);
 
-    GradeDTO updateGrade(Long id, GradeDTO gradeDTO);
+    GradeDTO updateGrade(long id, GradeDTO gradeDTO);
 
-    void deleteGrade(Long id);
+    void deleteGrade(long id);
 }

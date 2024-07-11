@@ -1,4 +1,4 @@
-FROM openjdk:21-jdk-alpine
+FROM openjdk:21
 VOLUME /tmp
-COPY target/app.jar school.jar
-ENTRYPOINT ["java", "-jar", "/school.jar"]
+COPY target/app.jar app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]

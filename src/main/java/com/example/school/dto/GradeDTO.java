@@ -7,4 +7,5 @@ public class GradeDTO {
     private Long id;
     private String subject;
     private int score;
+    private Long studentId;
 }
